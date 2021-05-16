@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Trip</title>
+</head>
+<body>
+    <div class="container">
+        <div class="error-report">
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                <span><li  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></span>  
+                {% endfor %}
+            </ul>
+            {% endif %}
+            </div>
+        <h1>Hello {{this_user.first_name}} ! Create a trip!</h1>
+        <form action="/trips/create" method='POST'>
+            {% csrf_token %}
+
+        <div class="input1">
+        <label for="destination" class="l-title">Destination</label>
+        <input type="text" name="destination" class="l-content">
+        </div>
+        <div class="input1">
+            <label for="start-date" class="l-title">Start Date</label>
+            <input type="date" name="start_date" class="l-content">
+        </div>
+        <div class="input1">
+            <label for="end-date" class="l-title">End Date</label>
+            <input type="date" name="end_date" class="l-content">
+        </div>
+        <div class="input1">
+            <label for="plan" class="l-title">Plan</label>
+            <textarea name="plan"  cols="10" rows="4"></textarea>
+        </div>
+        <div class="btn-input input2">
+            <input type="submit" value="Submit">
+        </div>
+        <div class="btn-input input2">
+            <a href="/user/dashboard">cancel</a>
+        </div>
+
+    </div>
+</body>
+</html>

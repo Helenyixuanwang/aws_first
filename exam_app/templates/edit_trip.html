@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit a trip</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello {{this_user.first_name}}! Let's edit your trip</h1>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="error-report">
+        {% if messages %}
+        <ul class="messages">    
+            {% for message in messages %}    
+            <span><li  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></span>  
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <form action="/trips/{{this_trip.id}}/update" method='POST'>
+        {% csrf_token %}
+
+    <div class="input1">
+    <label for="destination" class="l-title">Destination</label>
+    <input type="text" name="destination" class="l-content" value={{this_trip.destination}}>
+    </div>
+    <div class="input1">
+        <label for="start-date" class="l-title">Start Date</label>
+        <input type="date" name="start_date" class="l-content" value={{this_trip.start_date|date:'Y-m-d'}}>
+    </div>
+    <div class="input1">
+        <label for="end-date" class="l-title">End Date</label>
+        <input type="date" name="end_date" class="l-content" value={{this_trip.end_date|date:'Y-m-d'}}>
+    </div>
+    <div class="input1">
+        <label for="plan" class="l-title">Plan</label>
+        <textarea name="plan"  cols="10" rows="4" value={{this_trip.plan}}></textarea>
+    </div>
+    <div class="btn-input input2">
+        <input type="submit" value="update">
+    </div>
+    <div class="btn-input input2">
+        <a href="/user/dashboard">cancel</a>
+    </div>
+</body>
+</html>
