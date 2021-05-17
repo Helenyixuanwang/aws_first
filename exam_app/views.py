@@ -122,10 +122,13 @@ def update_trip(request, trip_id):
 def display_trip(request, trip_id):
     this_user = User.objects.get(id=request.session['user_id'])
     this_trip = Trip.objects.get(id=trip_id)
+    trip_creator = this_trip.creator
     context = {
         'this_trip':this_trip,
         'this_user':this_user,
-        'other_joined' : Trip.objects.all().exclude(creator=this_user),
+        # 'other_joined' : Trip.objects.all().exclude(creator=this_user),#this is wrong
+        'other_joined': this_trip.joined.all().exclude(id=request.session['user_id']),
+        
     }
     return render(request,'display_trip.html',context)
 

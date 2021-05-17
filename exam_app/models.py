@@ -49,6 +49,13 @@ class User(models.Model):
 class TripManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
+        today = datetime.now().strftime("%Y-%m-%d")
+        start_date = postData['start_date']
+        end_date = postData['end_date']
+        if start_date < today and postData['start_date']!='':
+            errors['past_date'] = "Start date must be in the future"
+        if end_date < start_date and postData['start_date'] !='' and postData['end_date']!='':
+            errors['wrong_schedule'] = "End date must be after Start date"
         if len(postData['destination']) < 3:
             errors['destination'] = "Destination should be at least 3 characters"
         if len(postData['plan']) < 3:
