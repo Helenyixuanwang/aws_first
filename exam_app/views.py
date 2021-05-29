@@ -41,6 +41,7 @@ def login(request):
                 # messages.success(request, "You have successfully logged in!")
                 return redirect('/user/dashboard')
             errors= messages.error(request,"Log in Email or password is not right")
+        errors= messages.error(request,"Log in Email or password is not right")
     return redirect('/')
 
 def dashboard(request):
@@ -127,8 +128,8 @@ def display_trip(request, trip_id):
         'this_trip':this_trip,
         'this_user':this_user,
         # 'other_joined' : Trip.objects.all().exclude(creator=this_user),#this is wrong
-        'other_joined': this_trip.joined.all().exclude(id=request.session['user_id']),
-        
+        'other_joined': this_trip.joined.all().exclude(id=trip_creator.id),
+        # 'other_joined': this_trip.joined.all(),
     }
     return render(request,'display_trip.html',context)
 
